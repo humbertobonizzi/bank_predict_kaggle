@@ -5,7 +5,6 @@ from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 
-
 def retorno_pipeline(x, y, col_num, col_cat_num, col_cat, tipo):
 
     #Transformador de colunas. Salvar como template. Criar texto com explicação.
@@ -35,11 +34,13 @@ def retorno_pipeline(x, y, col_num, col_cat_num, col_cat, tipo):
         treino, teste, resposta_treino, resposta_teste = train_test_split(x, y, random_state = 42, stratify=y)
 
     #método para treinar com todas as categorias, pra evitar a questão do risco de amostragem
-    train_objs_num = len(treino)
-    dataset = pd.concat(objs=[treino,teste], axis=0)
-    dataset_tratado = preprocessador.fit_transform(dataset)
-    treino_tratado = dataset_tratado[:train_objs_num]
-    teste_tratado = dataset_tratado[train_objs_num:]
+    #train_objs_num = len(treino)
+    #dataset = pd.concat(objs=[treino,teste], axis=0)
+    #dataset_tratado = preprocessador.fit_transform(dataset)
+    #treino_tratado = dataset_tratado[:train_objs_num]
+    #teste_tratado = dataset_tratado[train_objs_num:]
+    treino_tratado = preprocessador.fit_transform(treino)
+    teste_tratado = preprocessador.transform(teste)
 
     return treino_tratado, teste_tratado, resposta_treino, resposta_teste
 
